@@ -31,8 +31,10 @@ module Fozzie
 
       def method_added(target)
         _monitor_meth(target) do |with, without, feature, bin|
-          define_method(with) do |*args|
-            S.time_for(bin) { args.empty? ? self.send(without) : self.send(without, *args) }
+          define_method(with) do |*args, &blk|
+            S.time_for(bin) do
+              args.empty? ? self.send(without, &blk) : self.send(without, *args, &blk)
+            end
           end
           self.alias_method_chain(target, feature)
         end
@@ -40,8 +42,10 @@ module Fozzie
 
       def singleton_method_added(target)
         _monitor_meth(target) do |with, without, feature, bin|
-          define_singleton_method(with) do |*args|
-            S.time_for(bin) { args.empty? ? send(without) : send(without, *args) }
+          define_singleton_method(with) do |*args, &blk|
+            S.time_for(bin) do
+              args.empty? ? send(without, &blk) : send(without, *args, &blk)
+            end
           end
           self.singleton_class.class_eval { alias_method_chain target, feature }
         end
