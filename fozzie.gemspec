@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'sys-uname'
-  s.add_dependency 'facets'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
