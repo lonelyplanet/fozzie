@@ -27,7 +27,7 @@ module Fozzie
 
     # Returns the origin name of the current machine to register the stat against
     def origin_name
-      @origin_name ||= Uname.uname.nodename
+      @origin_name ||= Uname.nodename
     end
 
     def sniff?
