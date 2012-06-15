@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'sys-uname'
-  s.add_dependency 'facets'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
@@ -31,7 +30,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'sinatra'
   s.add_development_dependency 'rack-test'
-  s.add_development_dependency 'actionpack', '2.3.14'
+  s.add_development_dependency 'actionpack', '>= 3.0.0'
 
   s.add_development_dependency 'guard'
   s.add_development_dependency 'guard-rspec'

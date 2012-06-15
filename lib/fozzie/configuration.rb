@@ -1,5 +1,5 @@
+require 'active_support/core_ext/hash/indifferent_access'
 require 'yaml'
-require 'core_ext/hash'
 require 'sys/uname'
 require 'timeout'
 
@@ -38,10 +38,9 @@ module Fozzie
 
     # Handle the merging of the given configuaration, and the default config.
     def merge_and_assign_config(args = {})
-      arg = self.class.default_configuration.merge(args.symbolize_keys)
+      arg = self.class.default_configuration.merge(args)
       arg.merge!(config_from_yaml(arg))
       arg.each {|a,v| self.send("#{a}=", v) if self.respond_to?(a.to_sym) }
-
       arg
     end
 
@@ -57,15 +56,14 @@ module Fozzie
         :timeout         => 0.5,
         :monitor_classes => [],
         :sniff_envs      => [:development, :staging, :production]
-      }.dup
+      }.with_indifferent_access
     end
 
     # Loads the configuration from YAML, if possible
     def config_from_yaml(args)
       fp = full_config_path(args[:config_path])
       return {} unless File.exists?(fp)
-      cnf = YAML.load(File.open(fp))[args[:env]]
-      (cnf.kind_of?(Hash)) ? cnf.symbolize_keys : {}
+      YAML.load(File.open(fp))[args[:env]] || {}
     end
 
     # Returns the absolute file path for the Fozzie configuration, relative to the given path
