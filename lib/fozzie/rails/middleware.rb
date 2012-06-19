@@ -9,12 +9,14 @@ module Fozzie
 
       # Generates the statistics key for the current path
       def generate_key(env)
-        path_str = env['PATH_INFO']
+        path_str       = env['PATH_INFO']
+        request_method = env['REQUEST_METHOD']
+
         return nil unless path_str
 
         begin
           routing = routing_lookup
-          path    = routing.recognize_path(path_str)
+          path    = routing.recognize_path(path_str, :method => request_method)
           stat    = [path[:controller], path[:action], "render"].join('.')
           stat
         rescue => exc

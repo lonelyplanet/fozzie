@@ -92,6 +92,23 @@ Each of the above methods accepts a sample rate as the last argument (before any
     Stats.decrement 'wat', 10
 
     Stats.count 'wat', 5, 10
+    
+## Monitor
+
+You can monitor methods with the following:
+
+    class FooBar
+    
+      _monitor
+      def zar
+        # my code here...
+      end
+    
+    end
+
+This will register the processing time for this method, everytime it is called, under the Graphite bucket `foo_bar.zar`. 
+
+This will work on both Class and Instance methods.
 
 ## Namespaces
 

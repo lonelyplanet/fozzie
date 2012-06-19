@@ -5,7 +5,7 @@ require "fozzie/version"
 Gem::Specification.new do |s|
   s.name        = "fozzie"
   s.version     = Fozzie::VERSION
-  s.authors     = ["Marc Watts", "Mark Barger"]
+  s.authors     = ["Marc Watts", "Dave Nolan"]
   s.email       = ["marc.watts@lonelyplanet.co.uk"]
   s.summary     = %q{Statsd Ruby gem from Lonely Planet Online}
   s.description = %q{

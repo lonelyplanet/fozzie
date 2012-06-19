@@ -36,9 +36,8 @@ describe Fozzie::Configuration do
   end
 
   it "creates a prefix with origin" do
-    subject.stubs(:origin_name).returns("app.server.local")
     subject.appname = 'astoria'
-    subject.data_prefix.should eq 'astoria.app-server-local.test'
+    subject.data_prefix.should match /^astoria\.(\S+)\.test$/
   end
 
   it "handles missing configuration namespace" do
