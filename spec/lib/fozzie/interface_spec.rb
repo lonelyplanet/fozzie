@@ -159,4 +159,11 @@ describe Fozzie::Interface do
 
   end
 
+  describe "#gauge" do
+    it "registers a gauge measurement" do
+      subject.expects(:send).with("mystat", 99, "g", 1)
+      subject.gauge("mystat", 99)
+    end
+  end
+
 end

@@ -115,5 +115,9 @@ module Fozzie
       timing ["event", type.to_s, app], Time.now.usec
     end
 
+    # Register an arbitrary value
+    def gauge(stat, value)
+      send(stat, value, "g", sample_rate = 1)
+    end
   end
 end
