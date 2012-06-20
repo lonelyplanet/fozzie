@@ -38,6 +38,10 @@ Send through statistics depending on the type you want to provide:
 
     Stats.time_for 'wat' { sleep 5 }
 
+### Gauges - register arbitrary values
+
+    Stats.gauge 'wat', 99
+
 ### Events - register different events
 
 
