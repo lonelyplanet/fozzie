@@ -109,6 +109,11 @@ class FooBar
     # my code here...
   end
 
+  _monitor("my.awesome.bucket.name")
+  def quux
+    # something
+  end
+
 end
 ```
 This will register the processing time for this method, everytime it is called, under the Graphite bucket `foo_bar.zar`.

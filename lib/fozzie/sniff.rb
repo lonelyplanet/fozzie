@@ -13,15 +13,19 @@ module Fozzie
 
     module ClassMethods
 
-      def _monitor
+      def _monitor(bucket_name = nil)
         @_monitor_flag = true
+        @_bucket_name  = bucket_name
       end
 
       def _monitor_meth(target, &blk)
         return if @_monitor_flag.nil? || !@_monitor_flag
 
-        @_monitor_flag, feature, bin = false, :monitor, [self.name.snakecase, target.to_s.snakecase]
-        aliased_target, punctuation  = target.to_s.sub(/([?!=])$/, ''), $1
+        @_monitor_flag = false
+        bin            = @_bucket_name || [self.name.snakecase, target.to_s.snakecase]
+        feature        = :monitor
+        aliased_target = target.to_s.sub(/([?!=])$/, '')
+        punctuation    = $1
 
         with    = "#{aliased_target}_with_#{feature}#{punctuation}"
         without = "#{aliased_target}_without_#{feature}#{punctuation}"

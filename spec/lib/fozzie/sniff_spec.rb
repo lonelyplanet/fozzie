@@ -13,9 +13,15 @@ describe Fozzie::Sniff do
 
       def self.badger; :cares end
 
+      _monitor("my.awesome.class.bucket.name")
+      def self.class_method_with_non_default_bucket_name; true; end
+      
       _monitor
-      def foo; :foo end
+      def foo; :foo; end
 
+      _monitor("my.awesome.bucket.name")
+      def method_with_non_default_bucket_name; true; end
+      
       _monitor
       def sloth(a, b, c); [a,b,c] end
 
@@ -83,6 +89,12 @@ describe Fozzie::Sniff do
       subject.badger.should eq :cares
     end
 
+    it "optionally sets the bucket name" do
+      S.should_receive(:time_for).with("my.awesome.class.bucket.name")
+
+      subject.class_method_with_non_default_bucket_name
+    end
+
 
     it "yields to a block when given" do
       subject.class_method_yielding_to_block {|val| val }.should eq :retval_from_block
@@ -105,6 +117,12 @@ describe Fozzie::Sniff do
       S.should_receive(:time_for).with(['foo_bar', 'foo'])
 
       subject.foo
+    end
+
+    it "optionally sets the bucket name" do
+      S.should_receive(:time_for).with("my.awesome.bucket.name")
+
+      subject.method_with_non_default_bucket_name
     end
 
     it "handles arguments" do
