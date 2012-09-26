@@ -2,7 +2,7 @@ module Fozzie
   module Rack
 
     # Time and record each request through a given Rack app
-    # This middlewware times server processing for a resource, not view render.
+    # This middleware times server processing for a resource, not view render.
     class Middleware
 
       attr_reader :app
