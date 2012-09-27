@@ -2,6 +2,10 @@ require 'spec_helper'
 require 'logger'
 
 describe Fozzie do
+  it "flunks this deliberately failing spec" do
+    true.should be_false
+  end
+    
   it "allows dynamic assignment" do
     { :host => 'somewhere.local', :port => 99 }.each do |field, val|
       Fozzie.configure {|c| c.send("#{field}=", val) }
