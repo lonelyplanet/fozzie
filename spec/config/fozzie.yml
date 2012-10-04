@@ -3,3 +3,4 @@ test:
   appname: 'fozzie'
   host: '1.1.1.1'
   port: 9876
+  enable_rails_middleware: false

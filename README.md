@@ -222,7 +222,12 @@ app = Rack::Builder.new {
 
 Based on the Rack middleware above, but is more involved in its construction of the bucket value.
 
-Fozzie::Rails::Middleware will automatically be invoked on Rails initialization.
+Fozzie::Rails::Middleware will automatically be invoked on Rails initialization. It can be disabled with the following
+configuration setting:
+
+``` yaml
+    enable_rails_middleware: false
+```
 
 ## Bucket name prefixes
 

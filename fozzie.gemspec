@@ -31,4 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sinatra'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'actionpack'
+  s.add_development_dependency 'railties'
 end
