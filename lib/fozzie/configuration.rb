@@ -1,5 +1,4 @@
 require 'yaml'
-require 'facets/hash/symbolize_keys'
 require 'sys/uname'
 require 'timeout'
 
