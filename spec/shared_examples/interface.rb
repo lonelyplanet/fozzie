@@ -72,14 +72,14 @@ shared_examples "interface" do
     end
 
     it "simply questions the passed val with if" do
-      a = mock
+      a = double
       a.should_receive(:save).and_return({})
       subject.should_receive(:increment).with(["event.increment", "success"], 1)
       subject.increment_on('event.increment', a.save).should == {}
     end
 
     it "registers fail on nil return" do
-      a = mock
+      a = double
       a.should_receive(:save).and_return(nil)
       subject.should_receive(:increment).with(["event.increment", "fail"], 1)
       subject.increment_on('event.increment', a.save).should == nil
@@ -87,21 +87,21 @@ shared_examples "interface" do
 
     describe "performing actions" do
       it "registers success" do
-        a = mock
+        a = double
         a.should_receive(:save).and_return(true)
         subject.should_receive(:increment).with(["event.increment", "success"], 1)
         subject.increment_on('event.increment', a.save).should == true
       end
 
       it "registers failure" do
-        a = mock
+        a = double
         a.should_receive(:save).and_return(false)
         subject.should_receive(:increment).with(["event.increment", "fail"], 1)
         subject.increment_on('event.increment', a.save).should == false
       end
 
       it "registers positive even when nested" do
-        a = mock
+        a = double
         a.should_receive(:save).and_return(true)
         subject.should_receive(:timing).with('event.run', anything, anything)
         subject.should_receive(:increment).with(["event.increment", "success"], 1)
@@ -113,7 +113,7 @@ shared_examples "interface" do
       end
 
       it "registers negative even when nested" do
-        a = mock
+        a = double
         a.should_receive(:save).and_return(false)
         subject.should_receive(:timing).with('event.run', anything, anything)
         subject.should_receive(:increment).with(["event.increment", "fail"], 1)

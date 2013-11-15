@@ -1,6 +1,4 @@
 require 'core_ext/module/monitor'
-require 'facets/module/alias_method_chain' unless Module.methods.include?(:alias_method_chain)
-require 'facets/string/snakecase'
 
 module Fozzie
   module Sniff
@@ -46,7 +44,6 @@ module Fozzie
         self.singleton_class.class_eval { alias_method_chain target, feature }
       end
     end
-
   end
 
 end

@@ -7,9 +7,13 @@
 #
 # Rack and Rails middleware is avaliable to gather statistics on the processing time of Controller actions.
 #
+
 module Fozzie
 
   require 'core_ext/module/monitor'
+  require 'core_ext/module/alias_method_chain' unless Module.methods.include?(:alias_method_chain)
+  require 'core_ext/string/snakecase'
+  require 'core_ext/hash/symbolize_keys'
 
   require 'fozzie/adapter'
 
