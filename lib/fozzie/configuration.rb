@@ -1,6 +1,7 @@
 require 'yaml'
 require 'sys/uname'
 require 'timeout'
+require 'forwardable'
 
 module Fozzie
 
