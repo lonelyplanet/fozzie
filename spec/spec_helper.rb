@@ -5,9 +5,6 @@ root   = File.expand_path('../', File.dirname(__FILE__))
 lib    = File.expand_path('lib', root)
 $:.unshift(root, lib)
 
-# Shared Examples
-Dir[File.expand_path('spec/shared_examples/*.rb')].each {|r| require r }
-
 require 'fozzie'
 
 module Fozzie
@@ -26,4 +23,10 @@ end
 
 RSpec.configure do |config|
   config.order = :random
+  config.expect_with(:rspec) { |c| c.syntax = :should }
+  config.mock_with(:rspec) { |c| c.syntax = :should }
+  config.raise_errors_for_deprecations!
 end
+
+# Shared Examples
+Dir[File.expand_path('spec/shared_examples/*.rb')].each {|r| require r }

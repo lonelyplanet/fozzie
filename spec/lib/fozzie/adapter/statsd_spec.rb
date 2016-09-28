@@ -15,16 +15,16 @@ module Fozzie::Adapter
     end
     
     it "downcases any stat value" do
-      subject.should_receive(:send_to_socket).with {|bin| bin.match /\.foo/ }
+      subject.should_receive(:send_to_socket).with(/\.foo/)
 
-      subject.register(:bin => "FOO", :value => 1, :type => :gauge, :sample_rate => 1)
+      subject.register(:bucket => "FOO", :value => 1, :type => :gauge, :sample_rate => 1)
     end
 
     describe "#format_bucket" do
       it "accepts arrays" do
-        subject.format_bucket([:foo, '2']).should match /foo.2$/
-        subject.format_bucket([:foo, '2']).should match /foo.2$/
-        subject.format_bucket(%w{foo bar}).should match /foo.bar$/
+        subject.format_bucket([:foo, '2']).should match(/foo.2$/)
+        subject.format_bucket([:foo, '2']).should match(/foo.2$/)
+        subject.format_bucket(%w{foo bar}).should match(/foo.bar$/)
       end
 
       it "converts any values to strings for stat value, ignoring nil" do
@@ -32,9 +32,9 @@ module Fozzie::Adapter
       end
 
       it "replaces invalid chracters" do
-        subject.format_bucket([:foo, ':']).should match /foo.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/
-        subject.format_bucket([:foo, '@']).should match /foo.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/
-        subject.format_bucket('foo.bar.|').should match /foo.bar.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/
+        subject.format_bucket([:foo, ':']).should match(/foo.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/)
+        subject.format_bucket([:foo, '@']).should match(/foo.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/)
+        subject.format_bucket('foo.bar.|').should match(/foo.bar.#{subject.class::RESERVED_CHARS_REPLACEMENT}$/)
       end
     end
 
@@ -51,15 +51,15 @@ module Fozzie::Adapter
     it "ensures block is called on socket error" do
       subject.socket.stub(:send) { raise SocketError }
 
-      proc { subject.register(:bin => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1) { sleep 0.01 } }.should_not raise_error
-      proc { subject.register(:bin => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1) { sleep 0.01 } }.should_not raise_error
+      proc { subject.register(:bucket => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1) { sleep 0.01 } }.should_not raise_error
+      proc { subject.register(:bucket => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1) { sleep 0.01 } }.should_not raise_error
     end
 
     it "raises Timeout on slow lookup" do
       Fozzie.c.timeout = 0.01
       subject.socket.stub(:send).with(any_args) { sleep 0.4 }
 
-      subject.register(:bin => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1).should eq false
+      subject.register(:bucket => 'data.bin', :value => 1, :type => :gauge, :sample_rate => 1).should eq false
     end
 
     describe "multiple stats in a single call" do
@@ -68,9 +68,9 @@ module Fozzie::Adapter
         Fozzie.c.disable_prefix
 
         stats = [
-          { :bin => 'foo', :value => 1, :type => :count, :sample_rate => 1 },
-          { :bin => 'bar', :value => 1, :type => :gauge, :sample_rate => 1 },
-          { :bin => %w{foo bar}, :value => 100, :type => :timing, :sample_rate => 1 }
+          { :bucket => 'foo', :value => 1, :type => :count, :sample_rate => 1 },
+          { :bucket => 'bar', :value => 1, :type => :gauge, :sample_rate => 1 },
+          { :bucket => %w{foo bar}, :value => 100, :type => :timing, :sample_rate => 1 }
         ]
 
         subject.should_receive(:send_to_socket).with "foo:1|c\nbar:1|g\nfoo.bar:100|ms"

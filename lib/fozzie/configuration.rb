@@ -105,7 +105,5 @@ module Fozzie
     def full_config_path(path)
       File.expand_path('config/fozzie.yml', path)
     end
-
   end
-
 end
