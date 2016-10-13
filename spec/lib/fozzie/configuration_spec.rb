@@ -86,17 +86,17 @@ describe Fozzie::Configuration do
   describe "#sniff?" do
     it "defaults to false for testing" do
       subject.stub(:env => "test")
-      subject.sniff?.should be_false
+      subject.sniff?.should be false
     end
 
     it "defaults true when in development" do
       subject.stub(:env => "development")
-      subject.sniff?.should be_true
+      subject.sniff?.should be true
     end
 
     it "defaults true when in production" do
       subject.stub(:env => "production")
-      subject.sniff?.should be_true
+      subject.sniff?.should be true
     end
   end
 
@@ -105,12 +105,12 @@ describe Fozzie::Configuration do
 
     it "scopes to return false" do
       subject.stub(:env => "development")
-      subject.sniff?.should be_false
+      subject.sniff?.should be false
     end
 
     it "scopes to return true" do
       subject.stub(:env => "test")
-      subject.sniff?.should be_true
+      subject.sniff?.should be true
     end
 
   end

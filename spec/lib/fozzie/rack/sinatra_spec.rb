@@ -15,14 +15,14 @@ describe "Sinatra Server with Middleware" do
   end
 
   it "sends stats request on root" do
-    S.should_receive(:timing).with('index.render', anything, anything)
+    S.should_receive(:timing).with('index.render', anything, anything, anything)
     get '/'
     last_response.should be_ok
     last_response.body.should == 'echo'
   end
 
   it "sends stats request on nested path" do
-    S.should_receive(:timing).with('somewhere.nice.render', anything, anything)
+    S.should_receive(:timing).with('somewhere.nice.render', anything, anything, anything)
 
     get '/somewhere/nice'
     last_response.should be_ok

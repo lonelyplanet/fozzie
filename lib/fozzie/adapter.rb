@@ -1,1 +1,1 @@
-%w{statsd}.each {|r| require "fozzie/adapter/#{r}" }
+%w{statsd datadog}.each {|r| require "fozzie/adapter/#{r}" }

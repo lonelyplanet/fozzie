@@ -11,9 +11,8 @@ module Fozzie
     private
 
     # Cache the requested metrics for bulk sending
-    #
-    def send(stat, value, type, sample_rate = 1)
-     val = { :bin => stat, :value => value, :type => type, :sample_rate => sample_rate }
+    def send(stat, value, type, sample_rate = 1, extra = {})
+     val = extra.merge({ :bucket => stat, :value => value, :type => type, :sample_rate => sample_rate })
 
      @metrics.push(val)
     end

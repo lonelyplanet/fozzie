@@ -3,7 +3,6 @@ require 'resolv'
 
 module Fozzie
   module Adapter
-
     class Statsd
 
       RESERVED_CHARS_REGEX       = /[\:\|\@\s]/
@@ -17,10 +16,10 @@ module Fozzie
       #
       # Creates the Statsd key from the given values, and sends to socket (depending on sample rate)
       def register(*stats)
-        metrics = stats.flatten.collect do |stat|
+        metrics = stats.flatten.map do |stat|
           next if sampled?(stat[:sample_rate])
 
-          bucket = format_bucket(stat[:bin])
+          bucket = format_bucket(stat[:bucket])
           value  = format_value(stat[:value], stat[:type], stat[:sample_rate])
 
           [bucket, value].join(':')
